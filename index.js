@@ -28,6 +28,26 @@ const ProcessEventMessage = async (Message) => {
       throw new Error("No body");
     }
     // Do something with the message
+    const LogEvent = await LogEventMessage(Message);
+    if (!LogEvent) {
+      throw new Error("Error logging event");
+    }
+    return true;
+  } catch (error) {
+    console.error(error);
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: error.message }),
+    };
+  }
+}
+
+const LogEventMessage = async (Message) => { 
+  try {
+    if (!Message) {
+      throw new Error("No body");
+    }
+    console.log(Message);
     return true;
   } catch (error) {
     console.error(error);
