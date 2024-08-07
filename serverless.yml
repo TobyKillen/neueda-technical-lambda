@@ -1,0 +1,16 @@
+service: aws-node-sqs-worker-project
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  handler:
+    handler: index.handler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - JobsQueue
+              - Arn
